@@ -1,6 +1,7 @@
+
 //import { CloudArrowDownIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState, type FC } from "react";
-import { useSearchParams } from "react-router-dom";
+//import { useSearchParams } from "react-router-dom";
 import ErrorMsg from "./ErrorMsg";
 
 //import { Subject, Post } from "./types"; // Add missing imports
@@ -76,7 +77,7 @@ interface Repo
 
 const RepoWalker: FC<{}> = () => 
 {
-  const [searchParams, setSearchParams] = useSearchParams();
+  //const [searchParams, setSearchParams] = useSearchParams();
   const [error, setError] = useState<string>("");
   const [repo, setRepo] = useState<Repo | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -92,7 +93,8 @@ const RepoWalker: FC<{}> = () =>
 
   useEffect(() =>
   {
-    const userFromParams = searchParams.get("user");
+    const searchParams = new URLSearchParams(window.location.search);
+    const userFromParams = searchParams.get("");
     if (userFromParams !== null && did === "" && repo === null) {
       setCandidate(userFromParams);
       resolveHandleOrDid(userFromParams).then((repoDid) =>
@@ -101,14 +103,15 @@ const RepoWalker: FC<{}> = () =>
         getRepo(repoDid);
       });
     }
-  }, [searchParams]);
+  }, []);
 
   const getRepo = async (repoDid: string) =>
   {
     setLoading(true);
     setError("");
     try {
-      const resp = await fetch(`https://bsky-search.jazco.io/repo/${repoDid}`);
+      const resp = await fetch(`https://bsky-search.jazco.io/repo/${repoDid}`
+      );
 
       // Check for non-200 status codes.
       if (!resp.ok) {
@@ -159,7 +162,7 @@ const RepoWalker: FC<{}> = () =>
       // Resolve all the DIDs in a big batch.
       await resolveDidBatch(Array.from(dids));
 
-      console.log(repoData);
+      //console.log(repoData);
       setRepo(repoData);
     } catch (e: any) {
       setError(e.message);
@@ -177,7 +180,7 @@ const RepoWalker: FC<{}> = () =>
     } else {
       try {
         const resp = await fetch(
-          `https://plc.jazco.io/${handleOrDid.toLowerCase()}`
+          `https://bsky.social/xrpc/com.atproto.repo.describeRepo?repo=${handleOrDid.toLowerCase()}`
         );
 
         if (!resp.ok) {
@@ -240,7 +243,7 @@ const RepoWalker: FC<{}> = () =>
         handles.set(doc.did, doc.handle);
       });
 
-      console.log(handles);
+      //console.log(handles);
 
       setHandles(handles);
     } catch (e: any) {
@@ -258,7 +261,7 @@ const RepoWalker: FC<{}> = () =>
     } else {
       try {
         const resp = await fetch(
-          `https://plc.jazco.io/${candidate.toLowerCase()}`
+          `https://bsky.social/xrpc/com.atproto.repo.describeRepo?repo=${candidate.toLowerCase()}`
         );
 
         if (!resp.ok) {
@@ -351,7 +354,8 @@ const RepoWalker: FC<{}> = () =>
                       e.preventDefault();
                       setLoading(true);
                       const repoDid = await handleButtonClick(e);
-                      setSearchParams({ user: candidate.toLowerCase() });
+                      const UrlsearchParams = new URLSearchParams();
+
                       setDid(repoDid);
                       getRepo(repoDid);
                     }}
@@ -437,7 +441,7 @@ const RepoWalker: FC<{}> = () =>
                 </div>
               </form>
               {repo && (
-                <div>
+                <div id="inicio">
                   <div className="flex gap-2 justify-center">
                     <div className="mt-6 w-auto flex">
                       <div className="bg-gray-900 overflow-hidden shadow border border-blue-100 rounded-lg flex flex-wrap justify-center">
@@ -496,7 +500,7 @@ const RepoWalker: FC<{}> = () =>
                                 </a>
                               </p>
                               <p>
-                                <a href="#" className="hover:underline font-semibold">
+                                <a href="#inicio" className="hover:underline font-semibold">
                                   Seguidores
                                 </a>
                               </p>
@@ -506,22 +510,22 @@ const RepoWalker: FC<{}> = () =>
                                 </a>
                               </p>
                               <p>
-                                <a href="#" className="hover:underline font-semibold">
+                                <a href="#inicio" className="hover:underline font-semibold">
                                   Bloqueado Por
                                 </a>
                               </p>
                               <p>
-                                <a href="#" className="hover:underline font-semibold">
+                                <a href="#inicio" className="hover:underline font-semibold">
                                   Cambios de Handle
                                 </a>
                               </p>
                               <p>
-                                <a href="#" className="hover:underline font-semibold">
+                                <a href="#inicio" className="hover:underline font-semibold">
                                   Invitado por
                                 </a>
                               </p>
                               <p>
-                                <a href="#" className="hover:underline font-semibold">
+                                <a href="#inicio" className="hover:underline font-semibold">
                                   Ha Invitado a
                                 </a>
                               </p>
@@ -549,7 +553,7 @@ const RepoWalker: FC<{}> = () =>
                       <div className="p-5 mb-4 border border-blue-100 rounded-lg bg-gray-900">
                         <a
                           id="blocks"
-                          href="#"
+                          href="#inicio"
                           className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
                         >
                           <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Bloqueadas </div>
@@ -582,7 +586,7 @@ const RepoWalker: FC<{}> = () =>
                       <div className="p-5 mb-4 border border-blue-100 rounded-lg bg-gray-900  ">
                         <a
                           id="posts"
-                          href="#"
+                          href="#inicio"
                           className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
                         >
                           <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Posts</div>
@@ -621,7 +625,7 @@ const RepoWalker: FC<{}> = () =>
                       <div className="p-5 mb-4 border border-blue-100 rounded-lg bg-gray-900  ">
                         <a
                           id="follows"
-                          href="#"
+                          href="#inicio"
                           className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
                         >
                           <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Siguiendo</div>
@@ -656,7 +660,7 @@ const RepoWalker: FC<{}> = () =>
                       <div className="p-5 mb-4 border border-blue-100 rounded-lg bg-gray-900  ">
                         <a
                           id="reposts"
-                          href="#"
+                          href="#inicio"
                           className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
                         >
                           <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Repost</div>
@@ -704,7 +708,7 @@ const RepoWalker: FC<{}> = () =>
                       <div className="p-5 mb-4 border border-gray-100 rounded-lg bg-white  ">
                         <a
                           id="likes"
-                          href="#"
+                          href="#inicio"
                           className="text-lg font-semibold text-gray-900 "
                         >
                           Likes

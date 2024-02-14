@@ -2,24 +2,16 @@
 import Layout from "../layouts/Layout.astro";
 import App from "../components/App.tsx";
 import Card from "../components/Card.astro";
+import RepoWalker from "../components/RepoWalker.tsx";
 ---
 
 <Layout title="Welcome to Astro.">
   <main>
-    <App client:only="react" />
+    <RepoWalker client:load />
   </main>
 </Layout>
 
 <style>
-  main {
-    margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
-    color: white;
-    font-size: 20px;
-    line-height: 1.6;
-  }
   .astro-a {
     position: absolute;
     top: -32px;

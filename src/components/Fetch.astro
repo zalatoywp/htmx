@@ -1,0 +1,206 @@
+---
+let repoDid = ""; // Assign an initial value to repoDid
+let handles = "";
+
+try {
+  let userhand = "zalatoy.com";
+
+  const resp = await fetch(`https://plc.jazco.io/${userhand}`);
+
+  if (!resp.ok) {
+    let errorMsg = "Ha ocurrido un error al resolver los handles.";
+    try {
+      const errorData = await resp.json();
+      if ("error" in errorData) {
+        errorMsg = errorData.error;
+        if (errorMsg === "redis: nil") {
+          errorMsg = "Handle no encontrado.";
+        }
+      }
+    } catch (parseError: any) {
+      // si falla el parseo, se usa el mensaje de error genérico.
+    }
+    throw new Error(errorMsg);
+  }
+
+  const didData = await resp.json();
+  repoDid = didData.did;
+  handles = didData.handle;
+} catch (e: any) {
+  // setError(e.message);
+  // setLoading(false);
+}
+
+const resp = await fetch(`https://bsky-search.jazco.io/repo/${repoDid}`);
+
+// si la re no es ok, se lanza un error.
+if (!resp.ok) {
+  let errorMsg = "Ha ocurrido un error al obtener el repositorio.";
+  try {
+    const errorData = await resp.json();
+    // Ha ocurrido un error en el servidor.
+    if ("error" in errorData) {
+      errorMsg = errorData.error;
+    }
+  } catch (parseError: any) {
+    // si falla el parseo, se usa el mensaje de error genérico.
+  }
+  throw new Error(errorMsg);
+}
+
+const repoData = await resp.json();
+if ("error" in repoData) {
+  throw new Error(repoData.error);
+}
+
+const dids: Set<string> = new Set();
+if (repoData.likes && repoData.likes.length > 0) {
+  for (let i = 0; i < repoData.likes.length; i++) {
+    const like = repoData.likes[i];
+    dids.add(like.content.subject.uri.split("/")[2]);
+  }
+}
+if (repoData.follows && repoData.follows.length > 0) {
+  for (let i = 0; i < repoData.follows.length; i++) {
+    const follow = repoData.follows[i];
+    dids.add(follow.content.subject);
+  }
+}
+if (repoData.blocks && repoData.blocks.length > 0) {
+  for (let i = 0; i < repoData.blocks.length; i++) {
+    const block = repoData.blocks[i];
+    dids.add(block.content.subject);
+  }
+}
+if (repoData.reposts && repoData.reposts.length > 0) {
+  for (let i = 0; i < repoData.reposts.length; i++) {
+    const repost = repoData.reposts[i];
+    dids.add(repost.content.subject.uri.split("/")[2]);
+  }
+}
+---
+
+<div>
+  <div class="flex gap-2 justify-center">
+    <div class="mt-6 w-auto flex">
+      <div
+        class="bg-gray-900 overflow-hidden shadow border border-blue-100 rounded-lg flex flex-wrap justify-center"
+      >
+        <div class="py-2 pl-6 pr-6">
+          <div class="mt-4 w-auto text-sm font-semibold text-gray-900">
+            <div>
+              <span>
+                <img
+                  class="h-16 w-16 border border-white rounded-full"
+                  src={`https://cdn.bsky.app/img/avatar/plain/${
+                    repoData.profile.uri.split("/")[2]
+                  }/${
+                    repoData.profile.content.avatar.ref.$link
+                  }@jpeg?v=1&size=90x90`}
+                  alt="avatar"
+                />
+              </span>
+              <br />
+              <span class="text-2xl font-bold text-gray-300">
+                {repoData.profile.content.displayName}
+              </span>
+              <span class="text-sm text-gray-400"> @{handles}</span>
+            </div>
+            <p class="font-normal text-orange-500">
+              {repoData.profile.uri.split("/")[2]}
+            </p>
+            <br />
+            <p class="font-normal text-gray-300">
+              {
+                repoData.profile.content.description
+                  .slice(0, 120)
+                  .split("\n")
+                  .map((line: unknown, idx: any) => (
+                    <span>
+                      {line}
+                      <br />
+                    </span>
+                  ))
+              }
+            </p>
+          </div>
+        </div>
+        <div class="py-2 pr-6 pl-6">
+          <div
+            class="mt-2 max-w-xl text-sm text-gray-300 text-left grid grid-cols-2 p-5 mb-2 border border-white rounded-lg bg-gray-900"
+          >
+            <div>
+              <p>
+                <a href="#" class="hover:underline font-semibold">
+                  {" "}
+                  Posts
+                </a>
+              </p>
+              <p>
+                <a href="#" class="hover:underline font-semibold">
+                  {" "}
+                  Reposts
+                </a>
+              </p>
+              <p>
+                <a href="#" class="hover:underline font-semibold">
+                  {" "}
+                  Likes
+                </a>
+              </p>
+              <p>
+                <a href="#" class="hover:underline font-semibold">
+                  {" "}
+                  Siguiendo
+                </a>
+              </p>
+              <p>
+                <a href="#" class="hover:underline font-semibold">
+                  {" "}
+                  Seguidores
+                </a>
+              </p>
+              <p>
+                <a href="#b" class="hover:underline font-semibold">
+                  Cuentas Bloqueadas
+                </a>
+              </p>
+              <p>
+                <a href="#" class="hover:underline font-semibold">
+                  Bloqueado Por
+                </a>
+              </p>
+              <p>
+                <a href="#" class="hover:underline font-semibold">
+                  Cambios de Handle
+                </a>
+              </p>
+              <p>
+                <a href="#" class="hover:underline font-semibold">
+                  Invitado por
+                </a>
+              </p>
+              <p>
+                <a href="#" class="hover:underline font-semibold">
+                  Ha Invitado a
+                </a>
+              </p>
+            </div>
+            <div class="text-right text-yellow-500 font-semibold">
+              <p>{repoData.posts.length.toLocaleString()}</p>
+              <p>{repoData.reposts.length.toLocaleString()}</p>
+              <p>{repoData.likes.length.toLocaleString()}</p>
+              <p>{repoData.follows.length.toLocaleString()}</p>
+              <p class="text-red-600">Registrese</p>
+              <p>{repoData.blocks.length.toLocaleString()}</p>
+              <p class="text-red-600">Registrese</p>
+              <p class="text-red-600">Registrese</p>
+              <p class="text-red-600">Registrese</p>
+              <p class="text-red-600">Registrese</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
