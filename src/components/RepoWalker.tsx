@@ -88,7 +88,7 @@ const RepoWalker: FC<{}> = () =>
 
   useEffect(() =>
   {
-    document.title = "Bluesky Repo Walker";
+    document.title = "ZalaDev";
   }, []);
 
   useEffect(() =>
@@ -292,7 +292,7 @@ const RepoWalker: FC<{}> = () =>
   };
 
   return (
-    <div>
+    <div id="inicio">
 
       <div className="mx-auto max-w-7xl py-4 sm:py-4 sm:px-6 lg:px-8">
         <div className="border-2 border-gray-500 shadow-md   shadow-cyan-500/50 rounded-2xl text-white lg:px-0 relative isolate overflow-hidden bg-gray-950 px-3 sm:px-6 py-8 sm:pb-24 sm:rounded-3xl">
@@ -441,7 +441,7 @@ const RepoWalker: FC<{}> = () =>
                 </div>
               </form>
               {repo && (
-                <div id="inicio">
+                <div >
                   <div className="flex gap-2 justify-center">
                     <div className="mt-6 w-auto flex">
                       <div className="bg-gray-900 overflow-hidden shadow border border-blue-100 rounded-lg flex flex-wrap justify-center">
@@ -556,9 +556,9 @@ const RepoWalker: FC<{}> = () =>
                           href="#inicio"
                           className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
                         >
-                          <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Bloqueadas </div>
+                          <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Ha bloqueado a {repo?.blocks.length.toLocaleString()} cuentas</div>
                         </a>
-                        <ol className="mt-3 divide-y divider-gray-200 ">
+                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll ">
                           {repo?.blocks.toReversed().map((block, idx) => (
                             <li key={idx}>
                               <a
@@ -589,9 +589,9 @@ const RepoWalker: FC<{}> = () =>
                           href="#inicio"
                           className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
                         >
-                          <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Posts</div>
+                          <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Numero de posts {repo?.posts.length.toLocaleString()}</div>
                         </a>
-                        <ol className="mt-3 divide-y divider-gray-200 ">
+                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll">
                           {repo?.posts.toReversed().map((post, idx) => (
                             < li key={idx} >
                               <a
@@ -628,9 +628,9 @@ const RepoWalker: FC<{}> = () =>
                           href="#inicio"
                           className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
                         >
-                          <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Siguiendo</div>
+                          <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Siguiendo a {repo?.follows.length.toLocaleString()} cuentas </div>
                         </a>
-                        <ol className="mt-3 divide-y divider-gray-200 ">
+                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll">
                           {repo?.follows.toReversed().map((follow, idx) => (
                             <li key={idx}>
                               <a
@@ -663,9 +663,9 @@ const RepoWalker: FC<{}> = () =>
                           href="#inicio"
                           className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
                         >
-                          <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Repost</div>
+                          <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Ha Reposteado {repo?.reposts.length.toLocaleString()} Post</div>
                         </a>
-                        <ol className="mt-3 divide-y divider-gray-200 ">
+                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll ">
                           {repo?.reposts.toReversed().map((repost, idx) => (
                             <li key={idx}>
                               <a
@@ -678,11 +678,11 @@ const RepoWalker: FC<{}> = () =>
                                 <div className="text-gray-100">
                                   <div className="text-base font-normal">
                                     <span className="font-medium text-yellow-500 ">
-                                      {handles.get(did)}
+                                      @{handles.get(did)}
                                     </span>{" "}
-                                    <a className="text-xs">repost al post de</a>{" "}
+                                    <a className="text-xs">Repost al post de</a>{" "}
                                     <span className="font-medium text-orange-500 ">
-                                      {handles.has(
+                                      @{handles.has(
                                         repost.content.subject.uri.split("/")[2]
                                       )
                                         ? handles.get(
@@ -705,16 +705,17 @@ const RepoWalker: FC<{}> = () =>
                         </ol>
                       </div>
 
-                      <div className="p-5 mb-4 border border-gray-100 rounded-lg bg-white  ">
+                      <div className="p-5 mb-4 border border-blue-100 rounded-lg bg-gray-900 ">
                         <a
                           id="likes"
                           href="#inicio"
-                          className="text-lg font-semibold text-gray-900 "
+                          className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
                         >
-                          Likes
+
+                          <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg ">Ha dado {repo?.likes.length.toLocaleString()} Likes</div>
                         </a>
-                        <ol className="mt-3 divide-y divider-gray-200 ">
-                          {repo?.likes.map((like, idx) => (
+                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll ">
+                          {repo?.likes.toReversed().map((like, idx) => (
 
                             <li key={idx}>
                               <a
@@ -722,16 +723,16 @@ const RepoWalker: FC<{}> = () =>
                                   }/post/${like.content.subject.uri.split("/")[4]
                                   }`}
                                 target="_blank"
-                                className="items-center block p-3 sm:flex hover:bg-gray-50 "
+                                className="items-center block p-3 sm:flex hover:bg-gray-800 rounded-3xl"
                               >
-                                <div className="text-gray-600 ">
+                                <div className="text-gray-100">
                                   <div className="text-base font-normal">
-                                    <span className="font-medium text-gray-900 ">
-                                      {handles.get(did)}
+                                    <span className="font-medium text-yellow-500 ">
+                                      @{handles.get(did)}
                                     </span>{" "}
-                                    liked a post by{" "}
-                                    <span className="font-medium text-gray-900 break-all">
-                                      {handles.has(
+                                    <a className="text-xs">Like al post de</a>{" "}
+                                    <span className="font-medium text-orange-500 ">
+                                      @{handles.has(
                                         like.content.subject.uri.split("/")[2]
                                       )
                                         ? handles.get(
@@ -745,7 +746,7 @@ const RepoWalker: FC<{}> = () =>
                                     </span>
                                   </div>
                                   <span className="inline-flex items-center text-xs font-normal text-gray-500 ">
-                                    {like.content.createdAt}
+                                    Like el {new Date(like.content.createdAt).toLocaleDateString()}
                                   </span>
                                 </div>
                               </a>

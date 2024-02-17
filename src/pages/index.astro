@@ -1,13 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import App from "../components/App.tsx";
-import Card from "../components/Card.astro";
+
 import RepoWalker from "../components/RepoWalker.tsx";
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="ZalaDev">
   <main>
-    <RepoWalker client:load />
+    <RepoWalker client:load transition:persist />
   </main>
 </Layout>
 
