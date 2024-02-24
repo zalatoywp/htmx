@@ -1,5 +1,5 @@
 /* empty css                                 */
-import { c as createAstro, d as createComponent, r as renderTemplate, e as addAttribute, m as maybeRenderHead, f as renderTransition, g as renderComponent, h as renderHead, i as renderSlot } from '../astro_85R9bCmk.mjs';
+import { c as createAstro, d as createComponent, r as renderTemplate, e as addAttribute, m as maybeRenderHead, f as renderTransition, g as renderComponent, h as renderHead, i as renderSlot } from '../astro_ObfTp1mm.mjs';
 
 const $$Astro$5 = createAstro();
 const $$ViewTransitions = createComponent(async ($$result, $$props, $$slots) => {
