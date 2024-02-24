@@ -1,11 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import RepoWalker from "../components/RepoWalker";
+import RepoWalker from "../components/RepoWalker.tsx";
 ---
 
 <Layout title="ZalaDev">
   <main class="scroll-smooth">
-    <RepoWalker client:only="react" transition:persist />
+    <RepoWalker client:only="react" />
   </main>
 </Layout>
 
