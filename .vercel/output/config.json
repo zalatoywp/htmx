@@ -4,9 +4,8 @@
     {
       "src": "^/_astro/(.*)$",
       "headers": {
-        "mode": "cors",
-        "access-control-allow-origin": "*",
-        "cache-control": "public, max-age=31536000, immutable"
+        "mode": "no-cors",
+        "access-control-allow-origin": "*"
       },
       "continue": true
     },
