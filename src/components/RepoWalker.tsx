@@ -110,7 +110,7 @@ const RepoWalker: FC<{}> = () =>
     setLoading(true);
     setError("");
     try {
-      const resp = await fetch(`https://bsky-search.jazco.io/repo/did:plc:kmpp7o5brlvi3mmyfltxumna`
+      const resp = await fetch(`https://bsky-search.jazco.io/repo/${repoDid}`
       );
 
       // Check for non-200 status codes.
