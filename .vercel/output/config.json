@@ -3,9 +3,11 @@
   "routes": [
     {
       "src": "^/_astro/(.*)$",
+      "mode": "no-cors",
       "headers": {
-        "mode": "no-cors",
-        "access-control-allow-origin": "*"
+        "access-control-allow-origin": "*",
+        "cache-control": "public, max-age=31536000, immutable",
+        "content-type": "application/json charset=utf-8"
       },
       "continue": true
     },
