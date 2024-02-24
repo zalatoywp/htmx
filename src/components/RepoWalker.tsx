@@ -292,9 +292,9 @@ const RepoWalker: FC<{}> = () =>
   };
 
   return (
-    <div id="inicio">
+    <div id="inicio" className="scroll-smooth">
 
-      <div className="mx-auto max-w-7xl py-4 sm:py-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl py-4 sm:py-4 sm:px-6 lg:px-8 ">
         <div className="border-2 border-gray-500 shadow-md   shadow-cyan-500/50 rounded-2xl text-white lg:px-0 relative isolate overflow-hidden bg-gray-950 px-3 sm:px-6 py-8 sm:pb-24 sm:rounded-3xl">
           <div className="mx-auto max-w-7xl">
             {error && (
@@ -302,7 +302,7 @@ const RepoWalker: FC<{}> = () =>
                 <ErrorMsg error={error} />
               </div>
             )}
-            <div>
+            <div >
               <div className="pb-0 pt-0 text-right pr-5">
                 <span
                   className="relative inline-block overflow-hidden rounded-full p-[1px]"
@@ -441,8 +441,8 @@ const RepoWalker: FC<{}> = () =>
                 </div>
               </form>
               {repo && (
-                <div >
-                  <div className="flex gap-2 justify-center">
+                <div>
+                  <div className="flex gap-2 justify-center ">
                     <div className="mt-6 w-auto flex">
                       <div className="bg-gray-900 overflow-hidden shadow border border-blue-100 rounded-lg flex flex-wrap justify-center">
                         <div className="py-2 pl-6 pr-4">
@@ -500,9 +500,14 @@ const RepoWalker: FC<{}> = () =>
                                 </a>
                               </p>
                               <p>
-                                <a href="#inicio" className="hover:underline font-semibold">
-                                  Seguidores
-                                </a>
+                                <div
+                                  onClick={() => alert('NO TIENE AUTORIZACIÓN, TIENE QUE SER UN USUARIO REGISTRADO PARA ACCEDER A ESTA INFORMACÍON')}
+                                >
+
+                                  <a href="#inicio" className="hover:underline font-semibold">
+                                    Seguidores
+                                  </a>
+                                </div>
                               </p>
                               <p>
                                 <a href="#blocks" className="hover:underline font-semibold">
@@ -510,24 +515,44 @@ const RepoWalker: FC<{}> = () =>
                                 </a>
                               </p>
                               <p>
-                                <a href="#inicio" className="hover:underline font-semibold">
-                                  Bloqueado Por
-                                </a>
+                                <div
+                                  onClick={() => alert('NO TIENE AUTORIZACIÓN, TIENE QUE SER UN USUARIO REGISTRADO PARA ACCEDER A ESTA INFORMACÍON')}
+                                >
+                                  <a href="#inicio" className="hover:underline font-semibold">
+
+                                    Bloqueado Por
+                                  </a>
+                                </div>
                               </p>
                               <p>
-                                <a href="#inicio" className="hover:underline font-semibold">
-                                  Cambios de Handle
-                                </a>
+                                <div
+                                  onClick={() => alert('NO TIENE AUTORIZACIÓN, TIENE QUE SER UN USUARIO REGISTRADO PARA ACCEDER A ESTA INFORMACÍON')}
+                                >
+                                  <a href="#inicio" className="hover:underline font-semibold">
+
+                                    Cambios de Handle
+                                  </a>
+                                </div>
                               </p>
                               <p>
-                                <a href="#inicio" className="hover:underline font-semibold">
-                                  Invitado por
-                                </a>
+                                <div
+                                  onClick={() => alert('NO TIENE AUTORIZACIÓN, TIENE QUE SER UN USUARIO REGISTRADO PARA ACCEDER A ESTA INFORMACÍON')}
+                                >
+                                  <a href="#inicio" className="hover:underline font-semibold">
+
+                                    Invitado por
+                                  </a>
+                                </div>
                               </p>
                               <p>
-                                <a href="#inicio" className="hover:underline font-semibold">
-                                  Ha Invitado a
-                                </a>
+                                <div
+                                  onClick={() => alert('NO TIENE AUTORIZACIÓN, TIENE QUE SER UN USUARIO REGISTRADO PARA ACCEDER A ESTA INFORMACÍON')}
+                                >
+                                  <a href="#inicio" className="hover:underline font-semibold">
+
+                                    Ha Invitado a
+                                  </a>
+                                </div>
                               </p>
 
                             </div>
@@ -536,12 +561,12 @@ const RepoWalker: FC<{}> = () =>
                               <p>{repo?.reposts.length.toLocaleString()}</p>
                               <p>{repo?.likes.length.toLocaleString()}</p>
                               <p>{repo?.follows.length.toLocaleString()}</p>
-                              <p className="text-red-600">Solo usuario registrados</p>
+                              <p className="text-red-600">Solo usuarios registrados</p>
                               <p>{repo?.blocks.length.toLocaleString()}</p>
-                              <p className="text-red-600">Solo usuario registrados</p>
-                              <p className="text-red-600">Solo usuario registrados</p>
-                              <p className="text-red-600">Solo usuario registrados</p>
-                              <p className="text-red-600">Solo usuario registrados</p>
+                              <p className="text-red-600">Solo usuarios registrados</p>
+                              <p className="text-red-600">Solo usuarios registrados</p>
+                              <p className="text-red-600">Solo usuarios registrados</p>
+                              <p className="text-red-600">Solo usuarios registrados</p>
                             </div>
                           </div>
                         </div>
@@ -554,11 +579,11 @@ const RepoWalker: FC<{}> = () =>
                         <a
                           id="blocks"
                           href="#inicio"
-                          className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
+                          className="p-3 top-0 text-lg font-semibold text-blue-200 hover:no-underline"
                         >
                           <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Ha bloqueado a {repo?.blocks.length.toLocaleString()} cuentas</div>
                         </a>
-                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll ">
+                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll hover:scroll-mx-0">
                           {repo?.blocks.toReversed().map((block, idx) => (
                             <li key={idx}>
                               <a
@@ -587,11 +612,11 @@ const RepoWalker: FC<{}> = () =>
                         <a
                           id="posts"
                           href="#inicio"
-                          className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
+                          className="p-3 top-0 text-lg font-semibold text-blue-200 hover:no-underline"
                         >
                           <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Numero de posts {repo?.posts.length.toLocaleString()}</div>
                         </a>
-                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll">
+                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll hover:scroll-mx-0">
                           {repo?.posts.toReversed().map((post, idx) => (
                             < li key={idx} >
                               <a
@@ -626,11 +651,11 @@ const RepoWalker: FC<{}> = () =>
                         <a
                           id="follows"
                           href="#inicio"
-                          className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
+                          className="p-3 top-0 text-lg font-semibold text-blue-200 hover:no-underline"
                         >
                           <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Siguiendo a {repo?.follows.length.toLocaleString()} cuentas </div>
                         </a>
-                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll">
+                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll hover:scroll-mx-0">
                           {repo?.follows.toReversed().map((follow, idx) => (
                             <li key={idx}>
                               <a
@@ -661,11 +686,11 @@ const RepoWalker: FC<{}> = () =>
                         <a
                           id="reposts"
                           href="#inicio"
-                          className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
+                          className="p-3 top-0 text-lg font-semibold text-blue-200 hover:no-underline"
                         >
                           <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg">Ha Reposteado {repo?.reposts.length.toLocaleString()} Post</div>
                         </a>
-                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll ">
+                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll hover:scroll-mx-0 ">
                           {repo?.reposts.toReversed().map((repost, idx) => (
                             <li key={idx}>
                               <a
@@ -709,12 +734,12 @@ const RepoWalker: FC<{}> = () =>
                         <a
                           id="likes"
                           href="#inicio"
-                          className="p-3 top-0 text-lg font-semibold text-blue-200 hover:underline"
+                          className="p-3 top-0 text-lg font-semibold text-blue-200 hover:no-underline"
                         >
 
                           <div className="mb-4 border border-blue-100 items-center block p-3 sm:flex hover:bg-gray-800 rounded-lg ">Ha dado {repo?.likes.length.toLocaleString()} Likes</div>
                         </a>
-                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll ">
+                        <ol className="mt-3 divide-y divider-gray-200 max-h-[380px] overflow-y-scroll hover:scroll-mx-0">
                           {repo?.likes.toReversed().map((like, idx) => (
 
                             <li key={idx}>
