@@ -1,7 +1,6 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import NavBar from "../components/NavBar.astro";
-
 import CompHeader from "../components/CompHeader.astro";
 
 interface Props {
@@ -23,8 +22,9 @@ const { title } = Astro.props;
     <ViewTransitions />
   </head>
   <body class="scroll-smooth">
-    <NavBar />
+    <!-- <NavBar /> -->
     <CompHeader />
+
     <slot />
     <style is:global>
       :root {

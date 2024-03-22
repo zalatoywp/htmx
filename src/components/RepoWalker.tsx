@@ -319,10 +319,10 @@ const RepoWalker: FC<{}> = () =>
                 </span>
 
               </div>
-              <h1 className="text-3xl font-bold text-orange-800 sm:text-6xl text-center">
+              <h1 className=" font-semibold text-3xl  text-slate-500  sm:text-6xl text-center">
                 Zalabsky Dev Tools
               </h1>
-              <p className="mt-4 pb-6 text-lg leading-6 text-gray-200 text-center">
+              <p className="mt-4 pb-6  text-sm sm:text-lg leading-6 text-gray-200 text-center">
                 Una herramienta para explorar los contenidos públicos de Bluesky
               </p>
               <form
@@ -359,7 +359,7 @@ const RepoWalker: FC<{}> = () =>
                       setDid(repoDid);
                       getRepo(repoDid);
                     }}
-                    className="block w-full rounded-md bg-gray-800 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="block border-2 border-cyan-500 rounded-md shadow-md  shadow-cyan-500/50 sm:flex sm:items-center max-w-lg mx-auto bg-gray-800 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     {loading ? (
                       <svg
